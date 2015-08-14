@@ -11,13 +11,13 @@ import android.widget.ArrayAdapter;
  * @author Michael Ruf
  * @since 2015-08-08
  */
-public abstract class HolderPagerAdapter<ItemType> extends ArrayAdapter<ItemType> {
+public abstract class HolderArrayAdapter<ItemType> extends ArrayAdapter<ItemType> {
 
-    private static final String TAG = "HolderPagerAdapter";
+    private static final String TAG = "HolderArrayAdapter";
 
     private int itemLayoutRes;
 
-    public HolderPagerAdapter(Context context, int itemLayoutRes) {
+    public HolderArrayAdapter(Context context, int itemLayoutRes) {
         super(context, 0);
         this.itemLayoutRes = itemLayoutRes;
     }
