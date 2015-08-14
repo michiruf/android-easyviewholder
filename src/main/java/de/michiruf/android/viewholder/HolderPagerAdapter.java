@@ -1,4 +1,4 @@
-package de.onehundretthings.android.ui.base.view.adapter;
+package de.michiruf.android.viewholder;
 
 import android.content.Context;
 import android.util.Log;
