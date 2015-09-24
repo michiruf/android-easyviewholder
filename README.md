@@ -23,29 +23,29 @@ dependencies {
 ## How to use
 Initialize the adapter
 ```java
-HolderArrayAdapter<Item> adapter = new HolderArrayAdapter<Item>(getActivity(), R.layout.things_play_item) {
+HolderArrayAdapter<Item> adapter = new HolderArrayAdapter<Item>(getActivity(), R.layout.your_item_layout) {
     @Override
     protected ViewHolder<Item> constructHolder(View view) {
         return new ItemHolder(view);
     }
 };
-itemsView.setAdapter(adapter);
+listView.setAdapter(adapter);
 ```
 
 Build your holder implementing the ViewHolder interface
 ```java
-    protected class ItemHolder implements HolderArrayAdapter.ViewHolder<Item> {
+protected class ItemHolder implements HolderArrayAdapter.ViewHolder<Item> {
 
-        protected TextView textView;
+    protected TextView textView;
 
-        public ItemHolder(View view) {
-            // Find the view and bind them to the fields
-        }
-
-        @Override
-        public void apply(Item item, int position) {
-		    // Apply your changes
-            textView.setText(item.getName());
-        }
+    public ItemHolder(View view) {
+        // Find the view and bind them to the fields
     }
+
+    @Override
+    public void apply(Item item, int position) {
+        // Apply your changes
+        textView.setText(item.getName());
+    }
+}
 ```
