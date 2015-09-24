@@ -39,12 +39,12 @@ protected class ItemHolder implements HolderArrayAdapter.ViewHolder<Item> {
     protected TextView textView;
 
     public ItemHolder(View view) {
-        // Find the view and bind them to the fields
+        // Find the views and bind them to the fields
     }
 
     @Override
     public void apply(Item item, int position) {
-        // Apply your changes
+        // Apply your changes. For example:
         textView.setText(item.getName());
     }
 }
