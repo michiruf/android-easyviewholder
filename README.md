@@ -1,4 +1,4 @@
-# Android easy view holder
+# Easy view holder for android
 A simple library to use view holders with less boilerplate.
 
 ## Embed via Gradle
