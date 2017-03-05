@@ -20,7 +20,7 @@ dependencies {
 }
 ```
 
-## How to use
+## How to use ListView Adapter
 Initialize the adapter
 ```java
 HolderArrayAdapter<Item> adapter = new HolderArrayAdapter<Item>(getActivity(), R.layout.your_item_layout) {
@@ -49,6 +49,40 @@ protected class ItemHolder implements HolderArrayAdapter.ViewHolder<Item> {
     }
 }
 ```
+
+## Jow to use RecyclerView Adapter
+Initialize the adapter
+```java
+RecyclerHolderArrayAdapter<Item> adapter = new RecyclerHolderArrayAdapter<Item>(R.layout.your_item_layout) {
+    @Override
+    protected ViewHolder<Item> constructHolder(View view) {
+        return new ItemHolder(view);
+    }
+};
+recyclerView.setAdapter(adapter);
+```
+
+Build your holder extending RecyclerHolderArrayAdapter.ViewHolder class
+```java
+class ItemHolder extends RecyclerHolderArrayAdapter.ViewHolder<Item> {
+
+    protected TextView textView;
+
+    ItemHolder(View view) {
+        super(view);
+        // Find the views and bind them to the fields
+    }
+
+    @Override
+    public void apply(Item item, int position) {
+        // Apply your changes. For example:
+        textView.setText(item.getName());
+    }
+}
+```
+
+UPDATE:
+Since the RecyclerView does not support OnItemClickListeners v0.5 will support this.
 
 ## License
 
