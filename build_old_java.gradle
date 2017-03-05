@@ -1,0 +1,25 @@
+apply plugin: 'java'
+
+// We need a provided configuration
+configurations {
+    provided
+    providedPlusCompile.extendsFrom(compile, provided)
+    testCompile.extendsFrom(providedPlusCompile)
+}
+sourceSets {
+    main.compileClasspath = configurations.providedPlusCompile
+}
+plugins.withType(IdeaPlugin) {
+    idea.module.scopes.PROVIDED.plus = [configurations.provided]
+}
+
+sourceCompatibility = JavaVersion.VERSION_1_7
+targetCompatibility = JavaVersion.VERSION_1_7
+
+dependencies {
+    provided fileTree(dir: 'libs', include: '*.jar')
+}
+
+// For jitpack.io
+apply plugin: 'maven'
+group 'com.github.michiruf'

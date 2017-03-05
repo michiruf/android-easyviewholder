@@ -1,23 +1,19 @@
-apply plugin: 'java'
-
-// We need a provided configuration
-configurations {
-    provided
-    providedPlusCompile.extendsFrom(compile, provided)
-    testCompile.extendsFrom(providedPlusCompile)
-}
-sourceSets {
-    main.compileClasspath = configurations.providedPlusCompile
-}
-plugins.withType(IdeaPlugin) {
-    idea.module.scopes.PROVIDED.plus = [configurations.provided]
+buildscript {
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.3.0'
+    }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
+}
 
 dependencies {
-    provided fileTree(dir: 'libs', include: '*.jar')
+    //provided fileTree(dir: 'libs', include: '*.jar')
+    provided 'com.android.support:recyclerview-v7:25.2.0'
 }
 
 // For jitpack.io

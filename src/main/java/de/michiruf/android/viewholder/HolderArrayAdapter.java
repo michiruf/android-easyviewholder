@@ -15,7 +15,7 @@ public abstract class HolderArrayAdapter<ItemType> extends ArrayAdapter<ItemType
 
     private static final String TAG = "HolderArrayAdapter";
 
-    private int itemLayoutRes;
+    private final int itemLayoutRes;
 
     public HolderArrayAdapter(Context context, int itemLayoutRes) {
         super(context, 0);
