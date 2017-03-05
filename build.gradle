@@ -12,7 +12,10 @@ android {
 }
 
 dependencies {
-    //provided fileTree(dir: 'libs', include: '*.jar')
+    // Local stuff
+    provided fileTree(dir: 'libs', include: '*.jar')
+
+    // Android requirements
     provided 'com.android.support:recyclerview-v7:25.2.0'
 }
 

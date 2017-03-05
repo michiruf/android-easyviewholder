@@ -1,4 +1,1 @@
-<manifest
-    package="de.michiruf.android"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-</manifest>
+<manifest package="de.michiruf.android"/>
