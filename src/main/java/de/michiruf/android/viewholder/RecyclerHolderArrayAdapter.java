@@ -1,5 +1,7 @@
 package de.michiruf.android.viewholder;
 
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +18,8 @@ public abstract class RecyclerHolderArrayAdapter<ItemType> extends RecyclerView.
 
     private final int itemLayoutRes;
     private final List<ItemType> items;
+
+    private OnItemClickListener onItemClickListener;
 
     public RecyclerHolderArrayAdapter(int itemLayoutRes) {
         this.itemLayoutRes = itemLayoutRes;
@@ -37,20 +41,38 @@ public abstract class RecyclerHolderArrayAdapter<ItemType> extends RecyclerView.
         }
 
         ViewHolder<ItemType> myHolder = (ViewHolder<ItemType>) holder;
-        myHolder.apply(items.get(position), position);
-    }
 
+        int adapterPosition = holder.getAdapterPosition();
+        // Cancel binding and stuff if the element was removed
+        if (adapterPosition == RecyclerView.NO_POSITION) {
+            return;
+        }
+
+        myHolder.apply(items.get(adapterPosition), adapterPosition);
+
+        if (onItemClickListener != null) {
+            if (myHolder.internalListener == null) {
+                myHolder.internalListener = new InternalOnItemClickListener(onItemClickListener);
+                myHolder.itemView.setOnClickListener(myHolder.internalListener);
+            }
+            myHolder.internalListener.position = adapterPosition;
+        }
+    }
 
     @Override
     public int getItemCount() {
         return items.size();
     }
 
-    public void add(ItemType entry) {
+    public ItemType getItem(int position) {
+        return items.get(position);
+    }
+
+    public void add(@NonNull ItemType entry) {
         items.add(entry);
     }
 
-    public void add(int position, ItemType itemType) {
+    public void add(int position, @NonNull ItemType itemType) {
         items.add(position, itemType);
     }
 
@@ -62,14 +84,40 @@ public abstract class RecyclerHolderArrayAdapter<ItemType> extends RecyclerView.
         items.clear();
     }
 
+    public void setOnItemClickListener(@Nullable OnItemClickListener listener) {
+        this.onItemClickListener = listener;
+    }
+
     protected abstract ViewHolder<ItemType> constructHolder(View view);
 
     public static abstract class ViewHolder<ItemType> extends RecyclerView.ViewHolder {
+
+        private InternalOnItemClickListener internalListener;
 
         public ViewHolder(View view) {
             super(view);
         }
 
         public abstract void apply(ItemType item, int position);
+    }
+
+    public interface OnItemClickListener {
+
+        void onItemClick(View view, int position);
+    }
+
+    private static class InternalOnItemClickListener implements View.OnClickListener {
+
+        private final OnItemClickListener onItemClickListener;
+        private int position;
+
+        private InternalOnItemClickListener(OnItemClickListener onItemClickListener) {
+            this.onItemClickListener = onItemClickListener;
+        }
+
+        @Override
+        public void onClick(View view) {
+            onItemClickListener.onItemClick(view, position);
+        }
     }
 }
