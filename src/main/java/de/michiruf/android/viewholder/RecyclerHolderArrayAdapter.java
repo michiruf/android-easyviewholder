@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -24,6 +25,11 @@ public abstract class RecyclerHolderArrayAdapter<ItemType> extends RecyclerView.
     public RecyclerHolderArrayAdapter(int itemLayoutRes) {
         this.itemLayoutRes = itemLayoutRes;
         items = new ArrayList<>();
+    }
+
+    public RecyclerHolderArrayAdapter(int itemLayoutRes, List<ItemType> dataList) {
+        this.itemLayoutRes = itemLayoutRes;
+        items = dataList;
     }
 
     @Override
@@ -68,12 +74,24 @@ public abstract class RecyclerHolderArrayAdapter<ItemType> extends RecyclerView.
         return items.get(position);
     }
 
+    public List<ItemType> getDataList() {
+        return items;
+    }
+
     public void add(@NonNull ItemType entry) {
         items.add(entry);
     }
 
     public void add(int position, @NonNull ItemType itemType) {
         items.add(position, itemType);
+    }
+
+    public boolean addAll(@NonNull Collection<? extends ItemType> collection) {
+        return items.addAll(collection);
+    }
+
+    public boolean addAll(int i, @NonNull Collection<? extends ItemType> collection) {
+        return items.addAll(i, collection);
     }
 
     public ItemType remove(int position) {
